@@ -4,9 +4,9 @@
 // The pictures are in the public "bills" bucket (see src/lib/billLink.ts).
 
 const WORDS = {
-  bn: { title: 'ফর্দ', description: 'পুরো ফর্দ দেখতে চাপুন · EasyLedger', open: 'ফর্দ খুলুন' },
-  hi: { title: 'बिल', description: 'पूरा बिल देखने के लिए दबाएँ · EasyLedger', open: 'बिल खोलें' },
-  en: { title: 'Bill', description: 'Tap to see the whole bill · EasyLedger', open: 'Open the bill' },
+  bn: { title: 'ফর্দ', description: 'পুরো ফর্দ দেখতে চাপুন · HisabLite', open: 'ফর্দ খুলুন' },
+  hi: { title: 'बिल', description: 'पूरा बिल देखने के लिए दबाएँ · HisabLite', open: 'बिल खोलें' },
+  en: { title: 'Bill', description: 'Tap to see the whole bill · HisabLite', open: 'Open the bill' },
 };
 
 export default function handler(req, res) {
@@ -38,7 +38,7 @@ export default function handler(req, res) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${words.title}</title>
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="EasyLedger">
+<meta property="og:site_name" content="HisabLite">
 <meta property="og:title" content="${words.title}">
 <meta property="og:description" content="${words.description}">
 ${preview}

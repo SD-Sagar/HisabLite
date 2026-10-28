@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="hl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <linearGradient id="hl-accent" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <linearGradient id="hl-page" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f8fafc" />
+    </linearGradient>
+    <filter id="hl-shadow" x="-10%" y="-10%" width="125%" height="125%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.32" />
+    </filter>
+  </defs>
+
+  <!-- Squircle Base -->
+  <rect width="512" height="512" rx="116" fill="url(#hl-bg)" />
+
+  <!-- Background decorative light -->
+  <circle cx="390" cy="130" r="130" fill="#6366f1" opacity="0.18" />
+  <circle cx="120" cy="380" r="110" fill="#10b981" opacity="0.12" />
+
+  <!-- Main Ledger Book / Folio forming the "H" -->
+  <g filter="url(#hl-shadow)">
+    <!-- Left Folio Page (Left pillar of the H) -->
+    <rect x="110" y="112" width="120" height="288" rx="24" fill="url(#hl-page)" />
+    <!-- Spine Line -->
+    <rect x="110" y="112" width="30" height="288" rx="15" fill="#e2e8f0" />
+
+    <!-- Ledger balance lines on left page -->
+    <rect x="156" y="172" width="56" height="16" rx="8" fill="#4f46e5" />
+    <rect x="156" y="218" width="56" height="14" rx="7" fill="#cbd5e1" />
+    <rect x="156" y="260" width="46" height="14" rx="7" fill="#cbd5e1" />
+    <rect x="156" y="302" width="52" height="14" rx="7" fill="#cbd5e1" />
+
+    <!-- Center Bridge (Horizontal crossbar of the H) -->
+    <rect x="200" y="234" width="112" height="44" rx="22" fill="#ffffff" />
+    <rect x="214" y="244" width="84" height="24" rx="12" fill="#4f46e5" />
+
+    <!-- Right Folio Page (Right pillar of the H) -->
+    <rect x="282" y="112" width="120" height="288" rx="24" fill="url(#hl-page)" />
+    <!-- Right Ledger balance lines -->
+    <rect x="304" y="172" width="76" height="16" rx="8" fill="#94a3b8" />
+    <rect x="304" y="218" width="60" height="14" rx="7" fill="#cbd5e1" />
+    <rect x="304" y="302" width="76" height="14" rx="7" fill="#cbd5e1" />
+  </g>
+
+  <!-- The "Lite" Dynamic Surge (Swift Checkmark & Lightning Accent over the right side) -->
+  <path d="M236 340 L310 404 C318 411, 330 409, 336 400 L424 250 C432 238, 426 222, 412 218 L368 206 C358 203, 348 209, 345 219 L320 296 L262 254 Z" fill="url(#hl-accent)" filter="url(#hl-shadow)" />
+
+  <!-- Spark Accent -->
+  <circle cx="414" cy="148" r="14" fill="#38bdf8" />
+</svg>

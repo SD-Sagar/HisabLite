@@ -4,7 +4,7 @@
 const bn = {
   app: {
     tagline: 'সহজ ডিজিটাল খাতা',
-    docTitle: 'HisabLite — সহজ ডিজিটাল খাতা',
+    docTitle: 'খাতায়-কলমে (Khatay-Kalomay) — সহজ ডিজিটাল খাতা',
   },
 
   nav: {
@@ -256,7 +256,7 @@ const bn = {
     saveImage: 'ছবি সেভ করুন',
     pasteHint: 'ছবি কপি হয়েছে — চ্যাটে চেপে ধরে Paste করুন',
     copyFailed: 'কপি করা গেল না',
-    appLine: (link: string) => `HisabLite অ্যাপে খাতা রাখি: ${link}`,
+    appLine: (link: string) => `খাতায়-কলমে অ্যাপে খাতা রাখি: ${link}`,
     appLineLabel: 'এই লাইনটাও সাথে যাবে:',
     appLineRemove: 'সরাতে চান?',
     billLink: (name: string, link: string) => `${name}, আপনার ফর্দ 👇\n${link}`,
@@ -416,7 +416,7 @@ const bn = {
     remember: 'পাসওয়ার্ডটা কোথাও লিখে রাখুন। অন্য ফোনে ঢুকতে এটা লাগবে।',
     forgot: 'পাসওয়ার্ড ভুলে গেছেন?',
     forgotHelp: 'আমাদের WhatsApp করুন, নতুন পাসওয়ার্ড দিয়ে দেব।',
-    forgotMessage: (phone: string) => `HisabLite: পাসওয়ার্ড ভুলে গেছি।${phone ? ` আমার নম্বর ${phone}` : ''}`,
+    forgotMessage: (phone: string) => `খাতায়-কলমে: পাসওয়ার্ড ভুলে গেছি।${phone ? ` আমার নম্বর ${phone}` : ''}`,
     whatsapp: 'WhatsApp করুন',
     badPhone: '১০ সংখ্যার মোবাইল নম্বর দিন',
     shortPassword: 'পাসওয়ার্ড অন্তত ৬ অক্ষরের দিন',
@@ -466,7 +466,7 @@ const bn = {
       'ফর্দে নিজের দোকানের লোগো',
       'ফর্দের ১০টি প্রিমিয়াম ডিজাইন',
       'পছন্দমতো অ্যাপের রঙ ও ব্যাকগ্রাউন্ড থিম',
-      'ফর্দ থেকে HisabLite-এর লেখা সরানো',
+      'ফর্দ থেকে খাতায়-কলমে-এর লেখা সরানো',
     ],
     scanPremium: 'খাতার ছবি থেকে এন্ট্রি — যত খুশি',
     scanSoon: 'খাতার ছবি থেকে এন্ট্রি — শীঘ্রই আসছে',
@@ -495,7 +495,7 @@ const bn = {
     sentAt: (time: string) => `জানিয়েছেন ${time}`,
     tell: 'WhatsApp-এ জানান',
     payMessage: (plan: string, amount: string, phone: string, utr: string) =>
-      `HisabLite: ${plan} প্ল্যানের ${amount} পাঠিয়েছি। আমার নম্বর ${phone}${utr ? `, UTR ${utr}` : ''}`,
+      `Khatay-Kalomay: ${plan} প্ল্যানের ${amount} পাঠিয়েছি। আমার নম্বর ${phone}${utr ? `, UTR ${utr}` : ''}`,
     payAgain: 'ভুল হয়েছে? আবার পাঠান',
     rejected: 'টাকা মেলেনি',
     rejectedHelp: 'ভুল মনে হলে WhatsApp করুন, না হলে নিচ থেকে আবার পাঠান।',
@@ -545,7 +545,7 @@ const bn = {
     whatsappDesktop: 'WhatsApp-এ যোগাযোগ করুন',
     copy: 'নম্বর কপি করুন',
     message: (shop: string, phone: string) =>
-      `নমস্কার, HisabLite অ্যাপ নিয়ে একটু সাহায্য চাই।${shop ? `\nদোকান: ${shop}` : ''}${phone ? `\nআমার নম্বর: ${phone}` : ''}`,
+      `নমস্কার, খাতায়-কলমে (Khatay-Kalomay) অ্যাপ নিয়ে একটু সাহায্য চাই।${shop ? `\nদোকান: ${shop}` : ''}${phone ? `\nআমার নম্বর: ${phone}` : ''}`,
   },
 
   /** a screen that broke, instead of a blank page */
@@ -573,14 +573,14 @@ const bn = {
     withPaise: (rupees: string, paise: string) => `${rupees} টাকা ${paise} পয়সা মাত্র`,
   },
 
-  /** for a shop that wants HisabLite on its computer */
+  /** for a shop that wants Khatay-Kalomay on its computer */
   desktop: {
     title: 'কম্পিউটারের অ্যাপ (Desktop)',
-    help: 'দোকানের কম্পিউটারে HisabLite চালাতে চান? বড় স্ক্রিনে খাতা, প্রিন্টারে সহজে ফর্দ।',
+    help: 'দোকানের কম্পিউটারে খাতায়-কলমে চালাতে চান? বড় স্ক্রিনে খাতা, প্রিন্টারে সহজে ফর্দ।',
     /** the one button, in সেটিংস and in the side menu; it opens WhatsApp */
     contact: 'ডেস্কটপ অ্যাপের জন্য যোগাযোগ করুন',
     message: (shop: string, phone: string) =>
-      `নমস্কার, আমার দোকানের কম্পিউটারের জন্য HisabLite ডেস্কটপ অ্যাপ চাই।${shop ? `\nদোকান: ${shop}` : ''}${phone ? `\nআমার নম্বর: ${phone}` : ''}`,
+      `নমস্কার, আমার দোকানের কম্পিউটারের জন্য খাতায়-কলমে (Khatay-Kalomay) ডেস্কটপ অ্যাপ চাই।${shop ? `\nদোকান: ${shop}` : ''}${phone ? `\nআমার নম্বর: ${phone}` : ''}`,
   },
 
   crash: {
@@ -595,7 +595,7 @@ const bn = {
     gone: 'ফর্দটা পাওয়া গেল না',
     goneHelp: 'লিঙ্কটা পুরো এসেছে কিনা দেখুন, না হলে দোকানে জানান।',
     save: 'ফর্দটা ফোনে রাখুন',
-    madeWith: 'এই ফর্দ HisabLite অ্যাপে তৈরি',
+    madeWith: 'এই ফর্দ খাতায়-কলমে অ্যাপে তৈরি',
   },
 
   /** premium: WhatsApp reminders to everyone who owes, one tap each */
@@ -610,7 +610,7 @@ const bn = {
     empty: 'এখনো কোনো হিসাব নেই',
     gone: 'এই লিঙ্কটা আর কাজ করছে না',
     goneHelp: 'দোকানে বলুন, তারা নতুন লিঙ্ক পাঠিয়ে দেবে।',
-    madeWith: 'দোকানের খাতা HisabLite-এ রাখা',
+    madeWith: 'দোকানের খাতা খাতায়-কলমে-তে রাখা',
     getApp: 'অ্যাপটা দেখুন',
   },
   reminders: {
@@ -682,7 +682,7 @@ const bn = {
     passwordSet: 'পাসওয়ার্ড বদলে গেছে। দোকানদারকে জানিয়ে দিন।',
     sendPassword: 'WhatsApp-এ পাঠান',
     passwordMessage: (phone: string, password: string) =>
-      `HisabLite: আপনার নম্বর ${phone}, নতুন পাসওয়ার্ড ${password}। ঢোকার পর সেটিংস থেকে বদলে নিতে পারেন।`,
+      `Khatay-Kalomay: আপনার নম্বর ${phone}, নতুন পাসওয়ার্ড ${password}। ঢোকার পর সেটিংস থেকে বদলে নিতে পারেন।`,
     message: 'WhatsApp',
     payTitle: 'টাকা নেওয়ার UPI',
     upiId: 'আপনার UPI ID',
@@ -694,7 +694,7 @@ const bn = {
     pricesHelp: 'নতুন দাম সঙ্গে সঙ্গে সবার অ্যাপে দেখাবে। যারা আগে টাকা দিয়েছে, তাদের মেয়াদ বদলাবে না।',
     badPrice: 'দামটা ঠিক করে লিখুন',
     webUrl: 'অ্যাপের ওয়েব ঠিকানা',
-    webUrlHelp: 'কাস্টমারকে পাঠানো খাতার লিঙ্ক এই ঠিকানা দিয়ে তৈরি হয়। যেমন: https://hisablite.app',
+    webUrlHelp: 'কাস্টমারকে পাঠানো খাতার লিঙ্ক এই ঠিকানা দিয়ে তৈরি হয়। যেমন: https://khatay-kalomay.app',
     appLink: 'অ্যাপের লিঙ্ক',
     appLinkHelp: 'ফ্রি দোকানের ফর্দ আর WhatsApp মেসেজের নিচে এই লিঙ্কটা যাবে। Play Store-এ ওঠার পর ওখানকার লিঙ্ক দিন।',
     saved: 'সেভ হয়েছে ✓',
@@ -737,14 +737,14 @@ const bn = {
   },
 
   upgrade: {
-    title: 'HisabLite প্রিমিয়াম',
+    title: 'খাতায়-কলমে প্রিমিয়াম',
     subtitle: 'দোকানের ব্র্যান্ডিং ও বিশেষ সুবিধাগুলো আনলক করুন',
     featureRequired: 'প্রিমিয়াম প্ল্যানে উপলব্ধ',
     benefitDesigns: '১০টি চমৎকার প্রিমিয়াম ফর্দ ডিজাইন',
     benefitLogo: 'ফর্দে নিজের দোকানের লোগো যুক্ত করার সুবিধা',
     benefitThemes: 'পছন্দমতো অ্যাপের রঙ ও ব্যাকগ্রাউন্ড থিম',
     benefitWa: 'নিজের মতো WhatsApp বিক্রয় ও তাগাদার মেসেজ',
-    benefitWatermark: 'ফর্দ থেকে HisabLite ওয়াটারমার্ক সরানো',
+    benefitWatermark: 'ফর্দ থেকে খাতায়-কলমে ওয়াটারমার্ক সরানো',
     seePlans: 'প্ল্যান দেখুন ও আপগ্রেড করুন',
     whatsappUs: 'অ্যাডমিনের সাথে WhatsApp-এ কথা বলুন',
   },
@@ -811,7 +811,7 @@ const bn = {
       tally: 'ট্যালি ধাঁচ',
     },
     designLocked: (name: string) => `“${name}” প্রিমিয়াম ডিজাইন — নিচে দেখে নিন কেমন দেখাবে`,
-    credit: 'ফর্দে ছোট করে “HisabLite দিয়ে তৈরি” লেখা থাকবে',
+    credit: 'ফর্দে ছোট করে “খাতায়-কলমে দিয়ে তৈরি” লেখা থাকবে',
     creditHelp: 'এই লেখা আর অ্যাপের লিঙ্ক দেখে আপনার কাস্টমাররাও অ্যাপটা পাবে।',
     premium: 'প্রিমিয়াম',
     premiumThanks: 'ধন্যবাদ! আপনি প্রিমিয়াম সদস্য। লোগো, ফর্দের ডিজাইন, নিজের মতো WhatsApp মেসেজ আর নিচের লেখা সরানো — সবই আপনার জন্য খোলা।',
@@ -894,7 +894,7 @@ const bn = {
     dueNow: 'এখন মোট বাকি',
     fileBase: 'ফর্দ',
     receiptFile: 'রসিদ',
-    madeWith: 'HisabLite দিয়ে তৈরি',
+    madeWith: 'খাতায়-কলমে দিয়ে তৈরি',
     receivedBig: 'টাকা পেলাম',
     shopFallback: 'আমার দোকান',
     sign: 'স্বাক্ষর',
@@ -986,7 +986,7 @@ const bn = {
 
   backup: {
     cantRead: 'ফাইলটা পড়া গেল না',
-    notBackup: 'এটা HisabLite-এর ব্যাকআপ ফাইল নয়',
+    notBackup: 'এটা খাতায়-কলমে-এর ব্যাকআপ ফাইল নয়',
     csvHeaders: ['নাম', 'ফোন', 'ঠিকানা', 'বাকি'],
   },
 

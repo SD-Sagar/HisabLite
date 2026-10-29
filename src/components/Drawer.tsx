@@ -2,10 +2,11 @@ import { useEffect, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import {
-  BellRing, BookUp, CalendarDays, Crown, DatabaseBackup, Home, Languages, PenLine, ScanLine, Settings, UserCog, Users, X,
+  BellRing, BookUp, CalendarDays, Crown, DatabaseBackup, Home, Languages, LogOut, PenLine, ScanLine, Settings, UserCog, Users, X,
 } from 'lucide-react';
 import { useT, type Dict } from '../i18n';
 import { canScan, useShopStatus } from '../lib/access';
+import { logOut } from '../lib/auth';
 import { cloudEnabled } from '../lib/cloud';
 import { useSettings } from '../settings';
 import { Logo } from './Logo';
@@ -46,6 +47,15 @@ export function Drawer({ open, onClose }: { open: boolean; onClose: () => void }
   const { write } = useContactUs();
   const { shown, closing } = useExit(open);
 
+  const handleLogout = async () => {
+    if (!confirm(t.account.logoutConfirm)) return;
+    onClose();
+    const unsent = await logOut();
+    if (unsent && confirm(t.account.logoutUnsent(unsent))) {
+      await logOut(true);
+    }
+  };
+
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose();
@@ -64,8 +74,8 @@ export function Drawer({ open, onClose }: { open: boolean; onClose: () => void }
         <div className="drawer-head">
           <Logo />
           <div>
-            <strong>{settings?.shopName || 'HisabLite'}</strong>
-            <small>HisabLite · {t.app.tagline}</small>
+            <strong>{settings?.shopName || 'খাতায়-কলমে'}</strong>
+            <small>Khatay-Kalomay · {t.app.tagline}</small>
           </div>
           <button className="icon-btn" aria-label={t.nav.closeMenu} onClick={onClose}>
             <X size={22} />
@@ -85,7 +95,7 @@ export function Drawer({ open, onClose }: { open: boolean; onClose: () => void }
             {l.scan && scanSoon && <span className="soon-tag">{t.nav.soon}</span>}
           </NavLink>
         ))}
-        {/* a shop that wants EasyLedger on its computer asks for it on WhatsApp, straight from here */}
+        {/* a shop that wants desktop app asks for it on WhatsApp */}
         <button
           type="button"
           className="drawer-link"
@@ -97,6 +107,17 @@ export function Drawer({ open, onClose }: { open: boolean; onClose: () => void }
           <WhatsAppIcon size={20} />
           {t.desktop.contact}
         </button>
+
+        {/* Account logout: understated, clean, always accessible without clutter */}
+        <button
+          type="button"
+          className="drawer-link drawer-logout"
+          onClick={() => void handleLogout()}
+        >
+          <LogOut size={19} />
+          <span>{t.account.logout}</span>
+        </button>
+
         {/* help is one tap from every page */}
         <div className="drawer-support">
           <Support compact />

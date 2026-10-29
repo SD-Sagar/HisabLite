@@ -159,8 +159,14 @@ function AccountSection({ onUpgrade }: { onUpgrade: () => void }) {
     <Section id="account" icon={<UserRound size={20} />} title={t.account.title}>
       <div className="account-row">
         <span className="muted">{t.account.phone}</span>
-        <b>{prettyPhone(phone)}</b>
+        <b>{phone ? prettyPhone(phone) : (cloudEnabled ? '—' : 'লোকাল মোড (এই ডিভাইসে সংরক্ষিত)')}</b>
       </div>
+
+      {!cloudEnabled && (
+        <p className="notice info" style={{ marginTop: 8, marginBottom: 8 }}>
+          লোকাল মোড: হিসাব এই ডিভাইসে সংরক্ষিত আছে। ক্লাউড ব্যাকআপের জন্য .env ফাইলে Supabase কী যোগ করুন।
+        </p>
+      )}
 
       {isAdmin && (
         <Link to="/admin" className={`plan-banner ${status?.adminPending ? 'warn' : ''}`} style={{ marginTop: 8, marginBottom: 8 }}>
@@ -175,7 +181,7 @@ function AccountSection({ onUpgrade }: { onUpgrade: () => void }) {
         </Link>
       )}
 
-      {isPaid(access) ? (
+      {cloudEnabled && (isPaid(access) ? (
         <div className="premium-card" style={{ marginTop: 8, marginBottom: 8 }}>
           <Crown size={22} />
           <div>
@@ -197,25 +203,31 @@ function AccountSection({ onUpgrade }: { onUpgrade: () => void }) {
             <Crown size={14} /> {t.upgrade?.seePlans ?? t.plans.see}
           </button>
         </div>
+      ))}
+
+      {cloudEnabled && <PlanStatus access={access} />}
+
+      {cloudEnabled && (
+        <p className={`sync-line ${ok ? 'ok' : sync.state}`}>
+          {ok ? <CheckCircle2 size={18} /> : sync.state === 'offline' ? <CloudOff size={18} /> : <CloudUpload size={18} />}
+          <span>
+            {line}
+            {ok && time && <small>{t.account.lastSynced(time)}</small>}
+          </span>
+        </p>
       )}
 
-      <PlanStatus access={access} />
-
-      <p className={`sync-line ${ok ? 'ok' : sync.state}`}>
-        {ok ? <CheckCircle2 size={18} /> : sync.state === 'offline' ? <CloudOff size={18} /> : <CloudUpload size={18} />}
-        <span>
-          {line}
-          {ok && time && <small>{t.account.lastSynced(time)}</small>}
-        </span>
-      </p>
-
       <div className="row gap wrap">
-        <button type="button" className="btn ghost" disabled={sync.state === 'syncing'} onClick={() => void syncNow()}>
-          <RefreshCw size={18} className={sync.state === 'syncing' ? 'spin' : ''} /> {t.account.syncNow}
-        </button>
-        <button type="button" className="btn ghost" onClick={() => setChanging(!changing)}>
-          <KeyRound size={18} /> {t.account.changePassword}
-        </button>
+        {cloudEnabled && (
+          <button type="button" className="btn ghost" disabled={sync.state === 'syncing'} onClick={() => void syncNow()}>
+            <RefreshCw size={18} className={sync.state === 'syncing' ? 'spin' : ''} /> {t.account.syncNow}
+          </button>
+        )}
+        {cloudEnabled && (
+          <button type="button" className="btn ghost" onClick={() => setChanging(!changing)}>
+            <KeyRound size={18} /> {t.account.changePassword}
+          </button>
+        )}
         <button type="button" className="btn danger-ghost" disabled={leaving} onClick={leave}>
           <LogOut size={18} /> {t.account.logout}
         </button>
@@ -788,7 +800,7 @@ export default function Settings() {
 
       {hubTab === 'account' && (
         <div className="settings-tab-pane">
-          {cloudEnabled && <AccountSection onUpgrade={() => setUpgradeFeature(t.settings.premium)} />}
+          <AccountSection onUpgrade={() => setUpgradeFeature(t.settings.premium)} />
 
           <Section id="language" icon={<Languages size={20} />} title="ভাষা · भाषा · Language">
             <div className="lang-grid" role="radiogroup">
@@ -1169,7 +1181,7 @@ export default function Settings() {
             <Section id="backup" icon={<Download size={20} />} title={t.nav.backup}>
               <p className="muted small">{cloudEnabled ? t.settings.backupHelpAdmin : t.settings.backupHelp}</p>
               <div className="row gap wrap">
-                <button className="btn primary" onClick={async () => downloadBlob(await exportBackup(), `hisablite-backup-${stamp}.json`)}>
+                <button className="btn primary" onClick={async () => downloadBlob(await exportBackup(), `khatay-kalomay-backup-${stamp}.json`)}>
                   <Download size={18} /> {t.settings.backupDownload}
                 </button>
                 <button className="btn ghost" onClick={() => importRef.current?.click()}>

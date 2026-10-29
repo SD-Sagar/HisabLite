@@ -3,7 +3,7 @@ import type { Dict } from './bn';
 const hi: Dict = {
   app: {
     tagline: 'सरल डिजिटल खाता',
-    docTitle: 'HisabLite — सरल डिजिटल खाता',
+    docTitle: 'Khatay-Kalomay — सरल डिजिटल खाता',
   },
 
   nav: {
@@ -251,7 +251,7 @@ const hi: Dict = {
     saveImage: 'फोटो सेव करें',
     pasteHint: 'फोटो कॉपी हो गई — चैट में दबाकर Paste करें',
     copyFailed: 'कॉपी नहीं हो सका',
-    appLine: (link: string) => `HisabLite ऐप में खाता रखता हूँ: ${link}`,
+    appLine: (link: string) => `Khatay-Kalomay ऐप में खाता रखता हूँ: ${link}`,
     appLineLabel: 'यह लाइन भी साथ जाएगी:',
     appLineRemove: 'हटाना है?',
     billLink: (name, link) => `${name}, आपका बिल 👇\n${link}`,
@@ -408,7 +408,7 @@ const hi: Dict = {
     remember: 'पासवर्ड कहीं लिखकर रखें। दूसरे फ़ोन पर लॉग इन के लिए यही चाहिए।',
     forgot: 'पासवर्ड भूल गए?',
     forgotHelp: 'हमें WhatsApp करें, नया पासवर्ड दे देंगे।',
-    forgotMessage: (phone) => `HisabLite: मेरा पासवर्ड याद नहीं।${phone ? ` मेरा नंबर ${phone}` : ''}`,
+    forgotMessage: (phone) => `Khatay-Kalomay: मेरा पासवर्ड याद नहीं।${phone ? ` मेरा नंबर ${phone}` : ''}`,
     whatsapp: 'WhatsApp करें',
     badPhone: '10 अंकों का मोबाइल नंबर डालें',
     shortPassword: 'पासवर्ड कम से कम 6 अक्षर का रखें',
@@ -456,7 +456,7 @@ const hi: Dict = {
       'अपने हिसाब से WhatsApp मैसेज लिखना',
       'बिल पर अपनी दुकान का लोगो',
       'बिल के 6 प्रीमियम डिज़ाइन',
-      'बिल से HisabLite का लिखा हटाना',
+      'बिल से Khatay-Kalomay का लिखा हटाना',
     ],
     scanPremium: 'खाते की फोटो से एंट्री — जितनी चाहें',
     scanSoon: 'खाते की फोटो से एंट्री — जल्द आ रहा है',
@@ -484,7 +484,7 @@ const hi: Dict = {
     utrLine: (utr) => `UTR ${utr}`,
     sentAt: (time) => `बताया: ${time}`,
     tell: 'WhatsApp पर बताएँ',
-    payMessage: (plan, amount, phone, utr) => `HisabLite: ${plan} प्लान के ${amount} भेज दिए। मेरा नंबर ${phone}${utr ? `, UTR ${utr}` : ''}`,
+    payMessage: (plan, amount, phone, utr) => `Khatay-Kalomay: ${plan} प्लान के ${amount} भेज दिए। मेरा नंबर ${phone}${utr ? `, UTR ${utr}` : ''}`,
     payAgain: 'गलती हुई? फिर से भेजें',
     rejected: 'पैसे नहीं मिले',
     rejectedHelp: 'गलत लगे तो WhatsApp करें, नहीं तो नीचे से फिर भेजें।',
@@ -534,7 +534,7 @@ const hi: Dict = {
     whatsappDesktop: 'WhatsApp पर संपर्क करें',
     copy: 'नंबर कॉपी करें',
     message: (shop, phone) =>
-      `नमस्ते, HisabLite ऐप के बारे में थोड़ी मदद चाहिए।${shop ? `\nदुकान: ${shop}` : ''}${phone ? `\nमेरा नंबर: ${phone}` : ''}`,
+      `नमस्ते, Khatay-Kalomay ऐप के बारे में थोड़ी मदद चाहिए।${shop ? `\nदुकान: ${shop}` : ''}${phone ? `\nमेरा नंबर: ${phone}` : ''}`,
   },
 
   inWords: {
@@ -560,10 +560,10 @@ const hi: Dict = {
 
   desktop: {
     title: 'कंप्यूटर का ऐप (Desktop)',
-    help: 'दुकान के कंप्यूटर पर HisabLite चलाना है? बड़ी स्क्रीन पर खाता, प्रिंटर पर आसानी से बिल।',
+    help: 'दुकान के कंप्यूटर पर Khatay-Kalomay चलाना है? बड़ी स्क्रीन पर खाता, प्रिंटर पर आसानी से बिल।',
     contact: 'डेस्कटॉप ऐप के लिए संपर्क करें',
     message: (shop, phone) =>
-      `नमस्ते, मेरी दुकान के कंप्यूटर के लिए HisabLite डेस्कटॉप ऐप चाहिए।${shop ? `\nदुकान: ${shop}` : ''}${phone ? `\nमेरा नंबर: ${phone}` : ''}`,
+      `नमस्ते, मेरी दुकान के कंप्यूटर के लिए Khatay-Kalomay डेस्कटॉप ऐप चाहिए।${shop ? `\nदुकान: ${shop}` : ''}${phone ? `\nमेरा नंबर: ${phone}` : ''}`,
   },
 
   crash: {
@@ -578,7 +578,7 @@ const hi: Dict = {
     gone: 'बिल नहीं मिला',
     goneHelp: 'देखें कि पूरा लिंक आया है या नहीं, वरना दुकान को बताएँ।',
     save: 'बिल फ़ोन में रखें',
-    madeWith: 'यह बिल HisabLite ऐप से बना है',
+    madeWith: 'यह बिल Khatay-Kalomay ऐप से बना है',
   },
 
   khata: {
@@ -591,7 +591,7 @@ const hi: Dict = {
     empty: 'अभी कोई हिसाब नहीं',
     gone: 'यह लिंक अब काम नहीं कर रहा',
     goneHelp: 'दुकान में कहें, वे नया लिंक भेज देंगे।',
-    madeWith: 'दुकान का खाता HisabLite में',
+    madeWith: 'दुकान का खाता Khatay-Kalomay में',
     getApp: 'ऐप देखें',
   },
   reminders: {
@@ -662,7 +662,7 @@ const hi: Dict = {
     passwordSet: 'पासवर्ड बदल गया। दुकानदार को बता दें।',
     sendPassword: 'WhatsApp पर भेजें',
     passwordMessage: (phone, password) =>
-      `HisabLite: आपका नंबर ${phone}, नया पासवर्ड ${password}। लॉग इन के बाद सेटिंग्स से बदल सकते हैं।`,
+      `Khatay-Kalomay: आपका नंबर ${phone}, नया पासवर्ड ${password}। लॉग इन के बाद सेटिंग्स से बदल सकते हैं।`,
     message: 'WhatsApp',
     payTitle: 'पैसे लेने का UPI',
     upiId: 'आपकी UPI ID',
@@ -674,7 +674,7 @@ const hi: Dict = {
     pricesHelp: 'नई कीमत तुरंत सबकी ऐप में दिखेगी। जिन्होंने पहले पैसे दिए हैं, उनकी अवधि नहीं बदलेगी।',
     badPrice: 'कीमत सही लिखें',
     webUrl: 'ऐप का वेब पता',
-    webUrlHelp: 'ग्राहक को भेजे जाने वाले खाते के लिंक इसी पते से बनते हैं। जैसे: https://hisablite.app',
+    webUrlHelp: 'ग्राहक को भेजे जाने वाले खाते के लिंक इसी पते से बनते हैं। जैसे: https://khatay-kalomay.app',
     appLink: 'ऐप का लिंक',
     appLinkHelp: 'फ्री दुकानों के बिल और WhatsApp मैसेज के नीचे यही लिंक जाएगा। Play Store पर आने के बाद वहीं का लिंक डालें।',
     saved: 'सेव हो गया ✓',
@@ -717,14 +717,14 @@ const hi: Dict = {
   },
 
   upgrade: {
-    title: 'HisabLite प्रीमियम',
+    title: 'Khatay-Kalomay प्रीमियम',
     subtitle: 'दुकान की ब्रांडिंग व खास सुविधाएँ अनलॉक करें',
     featureRequired: 'प्रीमियम प्लान में उपलब्ध है',
     benefitDesigns: '10 बेहतरीन प्रीमियम बिल डिज़ाइन',
     benefitLogo: 'बिल पर अपनी दुकान का लोगो',
     benefitThemes: 'पसंद का ऐप रंग व बैकग्राउंड थीम',
     benefitWa: 'अपनी पसंद के WhatsApp बिक्री व तगादा मैसेज',
-    benefitWatermark: 'बिल से HisabLite वॉटरमार्क हटाएँ',
+    benefitWatermark: 'बिल से Khatay-Kalomay वॉटरमार्क हटाएँ',
     seePlans: 'प्लान देखें और अपग्रेड करें',
     whatsappUs: 'एडमिन से WhatsApp पर बात करें',
   },
@@ -790,7 +790,7 @@ const hi: Dict = {
       tally: 'टैली जैसा',
     },
     designLocked: (name) => `“${name}” प्रीमियम डिज़ाइन है — नीचे देख लें कैसा दिखेगा`,
-    credit: 'बिल पर छोटा सा “HisabLite से बना” लिखा रहेगा',
+    credit: 'बिल पर छोटा सा “Khatay-Kalomay से बना” लिखा रहेगा',
     creditHelp: 'यह लिखा और ऐप का लिंक देखकर आपके ग्राहक भी ऐप तक पहुँचेंगे।',
     premium: 'प्रीमियम',
     premiumThanks: 'धन्यवाद! आप प्रीमियम सदस्य हैं। लोगो, बिल के डिज़ाइन, अपने हिसाब से WhatsApp मैसेज और नीचे का लिखा हटाना — सब आपके लिए खुला है।',
@@ -869,7 +869,7 @@ const hi: Dict = {
     dueNow: 'अब कुल बकाया',
     fileBase: 'बिल',
     receiptFile: 'रसीद',
-    madeWith: 'HisabLite से बना',
+    madeWith: 'Khatay-Kalomay से बना',
     receivedBig: 'पैसे मिले',
     shopFallback: 'मेरी दुकान',
     sign: 'हस्ताक्षर',
@@ -956,7 +956,7 @@ const hi: Dict = {
 
   backup: {
     cantRead: 'फ़ाइल पढ़ी नहीं जा सकी',
-    notBackup: 'यह HisabLite की बैकअप फ़ाइल नहीं है',
+    notBackup: 'यह Khatay-Kalomay की बैकअप फ़ाइल नहीं है',
     csvHeaders: ['नाम', 'फ़ोन', 'पता', 'बकाया'],
   },
 

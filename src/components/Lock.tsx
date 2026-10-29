@@ -158,7 +158,7 @@ function LockScreen({ phone, onUnlock }: { phone: string; onUnlock: () => void }
     <div className="lock" role="dialog" aria-modal="true" aria-label={t.lock.title}>
       <div className="lock-top">
         <Logo size={64} />
-        <h1>{settings?.shopName || 'HisabLite'}</h1>
+        <h1>{settings?.shopName || 'খাতায়-কলমে'}</h1>
         <p>
           <LockIcon size={15} /> {t.lock.enter}
         </p>

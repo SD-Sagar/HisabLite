@@ -136,7 +136,7 @@ function drawLogo(ctx: Ctx, logo: HTMLImageElement, x: number, top: number, size
   ctx.restore();
 }
 
-/** The small "HisabLite দিয়ে তৈরি" line at the very bottom, and where to get the app. */
+/** The small "খাতায়-কলমে দিয়ে তৈরি" line at the very bottom, and where to get the app. */
 export interface BillBrand {
   credit: boolean;
   link: string;

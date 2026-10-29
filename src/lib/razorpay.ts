@@ -45,7 +45,7 @@ export async function buyPlan(plan: Plan, opts: { phone: string; color: string; 
       order_id: data.orderId,
       amount: data.amount,
       currency: 'INR',
-      name: 'HisabLite',
+      name: 'Khatay-Kalomay',
       description: opts.description,
       prefill: { contact: opts.phone },
       theme: { color: opts.color },

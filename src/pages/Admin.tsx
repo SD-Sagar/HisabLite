@@ -367,7 +367,7 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
         disabled={busy}
         onClick={() =>
           void run(async () => {
-            downloadBlob(await shopBackup(shop.id), `hisablite-${(shop.shopName || shop.phone).replace(/[\\/:*?"<>|\s]+/g, '-')}-${todayISO()}.json`);
+            downloadBlob(await shopBackup(shop.id), `khatay-kalomay-${(shop.shopName || shop.phone).replace(/[\\/:*?"<>|\s]+/g, '-')}-${todayISO()}.json`);
             toast(t.admin.backupDone);
           })
         }
@@ -703,7 +703,7 @@ function PaySettings() {
             </label>
             <label className="field">
               <span>{t.admin.upiName}</span>
-              <input value={upiName} placeholder="HisabLite Store" onChange={(e) => setUpiName(e.target.value)} />
+              <input value={upiName} placeholder="Khatay-Kalomay Store" onChange={(e) => setUpiName(e.target.value)} />
             </label>
           </div>
         </div>
@@ -744,7 +744,7 @@ function PaySettings() {
                 autoCapitalize="none"
                 autoCorrect="off"
                 spellCheck={false}
-                placeholder="https://hisablite.app"
+                placeholder="https://khatay-kalomay.app"
                 value={webUrl}
                 onChange={(e) => setWebUrl(e.target.value)}
               />

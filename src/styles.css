@@ -4516,6 +4516,31 @@ button.drawer-link {
   color: var(--wa);
 }
 
+.drawer-logout {
+  color: var(--muted);
+  font-size: 14.5px;
+  min-height: 46px;
+  margin-top: 4px;
+  border-top: 1px dashed var(--line);
+}
+
+.drawer-logout svg {
+  color: var(--muted);
+  opacity: 0.75;
+  transition: transform 0.2s, color 0.2s;
+}
+
+.drawer-logout:hover {
+  background: var(--warn-soft);
+  color: var(--warn-ink, #c2410c);
+}
+
+.drawer-logout:hover svg {
+  color: var(--warn-ink, #c2410c);
+  opacity: 1;
+  transform: translateX(2px);
+}
+
 /* the short form, at the foot of the side menu and under the login card */
 .support-compact {
   display: flex;

@@ -14,8 +14,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['icon.svg'],
       manifest: {
-        name: 'HisabLite — সহজ ডিজিটাল খাতা',
-        short_name: 'HisabLite',
+        name: 'Khatay-Kalomay — খাতায়-কলমে ডিজিটাল খাতা',
+        short_name: 'খাতায়-কলমে',
         description: 'দোকানের ডিজিটাল খাতা: সহজ হিসাব ও WhatsApp-এ ফর্দ',
         lang: 'bn',
         // the page colour of the default look (পেছনের রং "মুক্তো" with the purple app colour)

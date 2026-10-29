@@ -92,8 +92,8 @@ export default function Login() {
 
       <div className="login-brand">
         <Logo />
-        <h1>EasyLedger</h1>
-        <h1>HisabLite</h1>
+        <h1>খাতায়-কলমে</h1>
+        <span className="brand-subtitle" style={{ fontSize: '14px', fontWeight: 600, color: 'var(--muted)', marginTop: '-4px', display: 'block' }}>Khatay-Kalomay</span>
         <p>{t.app.tagline}</p>
       </div>
 

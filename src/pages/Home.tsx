@@ -53,7 +53,7 @@ export default function Home() {
   const rows = useCustomerRows(searching ? query : '');
   const [adding, setAdding] = useState(false);
   const today = todayISO();
-  const shopName = settings?.shopName || 'HisabLite';
+  const shopName = settings?.shopName || 'খাতায়-কলমে';
 
   const boxRef = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLDivElement>(null);

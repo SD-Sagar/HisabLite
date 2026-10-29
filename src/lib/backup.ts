@@ -3,7 +3,7 @@ import { tr } from '../i18n';
 import { getSettings, saveSettings, withoutKeys, type Settings, type SharedSettings } from '../settings';
 
 interface BackupFile {
-  app: 'hisablite' | 'easyledger';
+  app: 'khatay-kalomay' | 'hisablite' | 'easyledger';
   version: 1;
   exportedAt: string;
   /** files made before cloud sync have no uid / no / dirty */
@@ -15,7 +15,7 @@ interface BackupFile {
 /** JSON backup of customers, entries and settings. Photos and API keys are left out. */
 export async function exportBackup(): Promise<Blob> {
   const data: BackupFile = {
-    app: 'hisablite',
+    app: 'khatay-kalomay',
     version: 1,
     exportedAt: new Date().toISOString(),
     customers: (await db.customers.toArray()).map(({ dirty: _d, ...c }) => c),
@@ -37,7 +37,7 @@ export async function importBackup(file: File): Promise<{ customers: number; txn
   } catch {
     throw new Error(tr().backup.cantRead);
   }
-  if ((data?.app !== 'hisablite' && data?.app !== 'easyledger') || !Array.isArray(data.customers) || !Array.isArray(data.txns)) {
+  if ((data?.app !== 'khatay-kalomay' && data?.app !== 'hisablite' && data?.app !== 'easyledger') || !Array.isArray(data.customers) || !Array.isArray(data.txns)) {
     throw new Error(tr().backup.notBackup);
   }
   const { apiKey, geminiApiKey } = await getSettings();

@@ -199,7 +199,7 @@ export async function shopBackup(shopId: string): Promise<Blob> {
       createdAt: Number(x.created_at),
       updatedAt: Number(x.updated_at),
     }));
-  const file = { app: 'hisablite', version: 1, exportedAt: new Date().toISOString(), shop: r.shop, customers, txns, settings: r.settings ?? {} };
+  const file = { app: 'khatay-kalomay', version: 1, exportedAt: new Date().toISOString(), shop: r.shop, customers, txns, settings: r.settings ?? {} };
   return new Blob([JSON.stringify(file)], { type: 'application/json' });
 }
 

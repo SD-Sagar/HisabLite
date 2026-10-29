@@ -43,7 +43,7 @@ export default function KhataView({ token }: { token: string }) {
   return (
     <div className="khata-page">
       <header className="khata-head">
-        <h1>{khata.shop.name || 'HisabLite'}</h1>
+        <h1>{khata.shop.name || 'খাতায়-কলমে'}</h1>
         {khata.shop.phone && (
           <a className="khata-phone" href={`tel:${khata.shop.phone}`}>
             <Phone size={16} /> {khata.shop.phone}

@@ -20,7 +20,7 @@ export function UpgradeModal({ open, onClose, feature }: UpgradeModalProps) {
     t.upgrade?.benefitLogo ?? 'Your Shop Logo on Bills',
     t.upgrade?.benefitThemes ?? 'Custom App Colors & Background Tones',
     t.upgrade?.benefitWa ?? 'Custom WhatsApp Sales & Reminder Messages',
-    t.upgrade?.benefitWatermark ?? 'Remove HisabLite Watermark from Bills',
+    t.upgrade?.benefitWatermark ?? 'Remove Khatay-Kalomay Watermark from Bills',
   ];
 
   return (
@@ -32,7 +32,7 @@ export function UpgradeModal({ open, onClose, feature }: UpgradeModalProps) {
           </div>
         </div>
 
-        <h2 className="upgrade-title">{t.upgrade?.title ?? 'HisabLite Premium'}</h2>
+        <h2 className="upgrade-title">{t.upgrade?.title ?? 'Khatay-Kalomay Premium'}</h2>
         <p className="upgrade-subtitle">
           {feature
             ? `${feature} — ${t.upgrade?.featureRequired ?? 'unlock with a Premium plan'}`
@@ -74,7 +74,7 @@ export function UpgradeModal({ open, onClose, feature }: UpgradeModalProps) {
               className="btn whatsapp block"
               onClick={() => {
                 onClose();
-                openWhatsApp(config.supportPhone, 'Hello! I want to upgrade my HisabLite account to Premium.');
+                openWhatsApp(config.supportPhone, 'Hello! I want to upgrade my Khatay-Kalomay account to Premium.');
               }}
             >
               <MessageCircle size={18} /> {t.upgrade?.whatsappUs ?? 'Talk to Admin on WhatsApp'}

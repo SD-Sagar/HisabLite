@@ -89,7 +89,7 @@ export const isUpiId = (s: string) => /^[\w.-]{2,}@[a-zA-Z][\w.-]{1,}$/.test(s.t
  */
 export function upiLink(c: PayConfig, amount: number, note: string) {
   // the UPI id goes in as it is: some apps don't read an escaped @
-  return `upi://pay?pa=${c.upiId.trim()}&pn=${encodeURIComponent(c.upiName || 'HisabLite')}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
+  return `upi://pay?pa=${c.upiId.trim()}&pn=${encodeURIComponent(c.upiName || 'Khatay-Kalomay')}&am=${amount}&cu=INR&tn=${encodeURIComponent(note)}`;
 }
 
 /** "I have paid": the owner sees it on the অ্যাডমিন page and turns the plan on. */

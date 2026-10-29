@@ -179,7 +179,7 @@ function PaySheet({
   const [copied, setCopied] = useState(false);
   const ready = !!config.upiId;
   // the note shows in the owner's UPI app next to the money, so it says whose it is
-  const link = ready ? upiLink(config, plan.price, `HisabLite ${plan.id} ${phone.replace(/\D/g, '').slice(-10)}`) : '';
+  const link = ready ? upiLink(config, plan.price, `Khatay-Kalomay ${plan.id} ${phone.replace(/\D/g, '').slice(-10)}`) : '';
   const qr = useMemo(() => (link ? qrPng(link) : ''), [link]);
   // upi:// opens the UPI apps only on Android; elsewhere the QR is the way
   const android = /Android/i.test(navigator.userAgent);
@@ -254,7 +254,7 @@ function PaySheet({
           <div className="pay-qr">
             <img src={qr} alt={`UPI QR · ${money(plan.price)}`} width={200} height={200} />
             <small className="muted">{t.plans.qrHelp}</small>
-            <a className="btn ghost small" href={qr} download={`hisablite-${plan.id}-upi.png`}>
+            <a className="btn ghost small" href={qr} download={`khatay-kalomay-${plan.id}-upi.png`}>
               <Download size={16} /> {t.plans.saveQr}
             </a>
           </div>

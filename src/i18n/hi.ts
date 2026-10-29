@@ -886,7 +886,7 @@ const hi: Dict = {
   },
 
   defaults: {
-    shopName: 'मेरी फल की आढ़त',
+    shopName: 'मेरी दुकान',
     billTitle: 'बिल / कैश मेमो',
     billFooter: 'धन्यवाद, फिर पधारें',
     templates: {

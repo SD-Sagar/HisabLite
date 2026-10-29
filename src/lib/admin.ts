@@ -82,10 +82,37 @@ export async function findShops(search: string): Promise<AdminShop[]> {
   }));
 }
 
+export async function broadcastToShop(shopId: string, action: string, data: Record<string, unknown> = {}) {
+  if (!supabase) return;
+  try {
+    const channel = supabase.channel(`shop-live-${shopId}`);
+    channel.subscribe((status) => {
+      if (status === 'SUBSCRIBED') {
+        channel
+          .send({
+            type: 'broadcast',
+            event: 'shop_event',
+            payload: { action, ...data, timestamp: Date.now() },
+          })
+          .finally(() => {
+            setTimeout(() => {
+              supabase?.removeChannel(channel);
+            }, 1200);
+          });
+      }
+    });
+  } catch (e) {
+    console.warn('[Realtime broadcast failed]:', e);
+  }
+}
+
 /** approve (the plan starts) or reject (the shopkeeper sees the note) a waiting payment */
-export async function decide(id: number, approve: boolean, note = '') {
+export async function decide(id: number, approve: boolean, note = '', shopId?: string) {
   const { error } = await sb().rpc('admin_decide', { p_request: id, p_approve: approve, p_note: note });
   if (error) throw error;
+  if (shopId) {
+    await broadcastToShop(shopId, approve ? 'plan_changed' : 'payment_rejected', { note });
+  }
   await refreshAccess().catch(() => undefined);
 }
 
@@ -93,21 +120,33 @@ export async function decide(id: number, approve: boolean, note = '') {
 export async function givePlan(shopId: string, plan: PlanId): Promise<string> {
   const { data, error } = await sb().rpc('admin_grant', { p_shop: shopId, p_plan: plan });
   if (error) throw error;
+  const until = data as string;
+  await broadcastToShop(shopId, 'plan_changed', { plan, until });
   await refreshAccess().catch(() => undefined);
-  return data as string;
+  return until;
 }
 
 export async function revokePlan(shopId: string): Promise<void> {
   const { error } = await sb().rpc('admin_revoke', { p_shop: shopId });
   if (error) {
-    await sb().from('shops').update({ paid_until: new Date().toISOString(), plan: null }).eq('id', shopId);
+    console.error('admin_revoke error:', error);
+    throw error;
   }
+  await broadcastToShop(shopId, 'plan_revoked');
   await refreshAccess().catch(() => undefined);
 }
 
 export async function setShopPassword(shopId: string, password: string) {
   const { error } = await sb().rpc('admin_set_password', { p_shop: shopId, p_password: password });
   if (error) throw error;
+  await broadcastToShop(shopId, 'password_changed');
+}
+
+export async function updateShopName(shopId: string, name: string) {
+  const { error } = await sb().rpc('admin_update_shop_name', { p_shop: shopId, p_name: name.trim() });
+  if (error) throw error;
+  await broadcastToShop(shopId, 'shop_name_changed', { shopName: name.trim() });
+  await refreshAccess().catch(() => undefined);
 }
 
 export async function savePayConfig(c: PayConfig) {

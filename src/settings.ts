@@ -216,7 +216,7 @@ export function withLanguage(s: Settings, lang: Lang): Settings {
   return {
     ...s,
     lang,
-    shopName: swap(s.shopName, (d) => d.shopName),
+    shopName: s.shopName,
     templates: {
       sale: swap(s.templates.sale, (d) => d.templates.sale),
       payment: swap(s.templates.payment, (d) => d.templates.payment),
@@ -312,9 +312,16 @@ export async function patchSettings(change: (s: Settings) => Partial<Settings>) 
  * their defaults follow this phone's language.
  */
 export async function applyCloudSettings(data: Partial<SharedSettings>, updatedAt: number) {
-  const { apiKey, geminiApiKey, lang } = await getSettings();
+  const current = await getSettings();
+  const { apiKey, geminiApiKey, lang } = current;
+  const merged = merge(data);
+  // Protect existing local shop name: if cloud data doesn't specify a shopName or it's blank,
+  // do not overwrite the shop's name with DEFAULT_SETTINGS.shopName
+  if (!data.shopName?.trim() && current.shopName?.trim()) {
+    merged.shopName = current.shopName;
+  }
   await db.transaction('rw', db.kv, async () => {
-    await saveSettings(withLanguage({ ...merge(data), apiKey, geminiApiKey }, lang), 'cloud');
+    await saveSettings(withLanguage({ ...merged, apiKey, geminiApiKey }, lang), 'cloud');
     await db.kv.put({ key: 'settingsSync', value: { updatedAt, dirty: 0 } satisfies SettingsSync });
   });
 }

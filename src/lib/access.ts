@@ -59,16 +59,10 @@ interface StatusRow {
 
 export async function refreshAccess() {
   if (!supabase) return;
-  const { data: authData } = await supabase.auth.getUser();
-  console.log('[DEBUG] Logged in auth user id:', authData.user?.id, 'phone:', authData.user?.phone);
   const { data, error } = await supabase.rpc('shop_status');
-  console.log('[DEBUG] shop_status raw response:', data, 'error:', error);
   if (error) throw error;
   const row = data as StatusRow | null;
-  if (!row) {
-    console.log('[DEBUG] shop_status returned null/empty — not saving status');
-    return;
-  }
+  if (!row) return;
   const r = row.request;
   const value: ShopStatus = {
     trialEndsAt: row.trial_ends_at,
@@ -82,7 +76,6 @@ export async function refreshAccess() {
     scans: row.scans ?? { used: 0, allowance: 5 },
     aiReady: row.ai_ready,
   };
-  console.log('[DEBUG] isAdmin value being saved:', value.isAdmin, '| full status:', value);
   await db.kv.put({ key: 'shopStatus', value });
 }
 

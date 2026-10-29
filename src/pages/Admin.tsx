@@ -8,7 +8,7 @@ import { useT, type Dict } from '../i18n';
 import { accessFrom, refreshAccess, useShopStatus } from '../lib/access';
 import {
   aiKeyState, decide, findShops, givePlan, revokePlan, saveAiKey, savePayConfig, savePlans, setShopPassword, shopBackup, tempPassword,
-  waitingPayments, type AdminShop, type AiKeyState, type WaitingPayment,
+  updateShopName, waitingPayments, type AdminShop, type AiKeyState, type WaitingPayment,
 } from '../lib/admin';
 import { fullPhone } from '../lib/auth';
 import { dayTime, fmtDate, initials, isoDate, money, prettyPhone, todayISO } from '../lib/format';
@@ -90,7 +90,7 @@ export default function Admin() {
     setBusy(p.id);
     setError(null);
     try {
-      await decide(p.id, true);
+      await decide(p.id, true, '', p.shopId);
       toast(t.admin.approved);
       await reload();
     } catch (e) {
@@ -106,7 +106,7 @@ export default function Admin() {
     setBusy(p.id);
     setError(null);
     try {
-      await decide(p.id, false, note);
+      await decide(p.id, false, note, p.shopId);
       toast(t.admin.rejectedDone);
       await reload();
     } catch (e) {
@@ -278,12 +278,20 @@ export default function Admin() {
 /** One shop: its trial or plan, a plan given by hand, and a new password. */
 function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans: Plan[]; onClose: () => void; onChanged: () => Promise<unknown> }) {
   const t = useT();
+  const [currentShop, setCurrentShop] = useState(shop);
+  const [shopNameInput, setShopNameInput] = useState(shop.shopName || '');
   const [password, setPassword] = useState(tempPassword);
   const [justSet, setJustSet] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const name = shop.shopName || prettyPhone(shop.phone);
-  const st = standing(shop, t);
+
+  useEffect(() => {
+    setCurrentShop(shop);
+    setShopNameInput(shop.shopName || '');
+  }, [shop]);
+
+  const name = currentShop.shopName || prettyPhone(currentShop.phone);
+  const st = standing(currentShop, t);
 
   const run = async (job: () => Promise<void>) => {
     setBusy(true);
@@ -301,7 +309,8 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
   const give = (p: Plan) => {
     if (!confirm(t.admin.giveConfirm(t.plans[p.id], name))) return;
     void run(async () => {
-      const until = await givePlan(shop.id, p.id);
+      const until = await givePlan(currentShop.id, p.id);
+      setCurrentShop((prev) => ({ ...prev, paidUntil: until, plan: p.id }));
       toast(until === 'infinity' ? t.admin.givenLifetime : t.admin.given(day(Date.parse(until))));
       await onChanged();
     });
@@ -310,8 +319,19 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
   const resetToFree = () => {
     if (!confirm(t.admin.resetConfirm(name))) return;
     void run(async () => {
-      await revokePlan(shop.id);
+      await revokePlan(currentShop.id);
+      setCurrentShop((prev) => ({ ...prev, paidUntil: null, plan: null }));
       toast(t.admin.resetDone);
+      await onChanged();
+    });
+  };
+
+  const saveShopName = (e: FormEvent) => {
+    e.preventDefault();
+    void run(async () => {
+      await updateShopName(currentShop.id, shopNameInput.trim());
+      setCurrentShop((prev) => ({ ...prev, shopName: shopNameInput.trim() }));
+      toast(t.admin.saved);
       await onChanged();
     });
   };
@@ -320,7 +340,7 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
     e.preventDefault();
     if (password.trim().length < 6) return setError(t.auth.shortPassword);
     void run(async () => {
-      await setShopPassword(shop.id, password.trim());
+      await setShopPassword(currentShop.id, password.trim());
       setJustSet(password.trim());
     });
   };
@@ -329,26 +349,52 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
     <Modal open onClose={onClose} title={name} className="shop-sheet">
       <div className="admin-shop-info">
         <p className="muted">
-          {prettyPhone(shop.phone)} · {t.admin.joined(day(Date.parse(shop.createdAt)))}
+          {prettyPhone(currentShop.phone)} · {t.admin.joined(day(Date.parse(currentShop.createdAt)))}
         </p>
         <div className="row gap wrap">
           <span className={`chip ${st.tone}`}>{st.label}</span>
-          {shop.waiting && <span className="chip warn">{t.admin.waiting}</span>}
+          {currentShop.waiting && <span className="chip warn">{t.admin.waiting}</span>}
         </div>
-        <button type="button" className="btn whatsapp small" onClick={() => openWhatsApp(shop.phone, '')}>
+        <button type="button" className="btn whatsapp small" onClick={() => openWhatsApp(currentShop.phone, '')}>
           <MessageCircle size={16} /> {t.admin.message}
         </button>
       </div>
 
+      <h3 className="sheet-title">{t.settings.shopName}</h3>
+      <form className="row gap" onSubmit={saveShopName}>
+        <input
+          className="grow"
+          value={shopNameInput}
+          placeholder={t.admin.noName}
+          onChange={(e) => setShopNameInput(e.target.value)}
+        />
+        <button
+          type="submit"
+          className="btn primary"
+          disabled={busy || shopNameInput.trim() === (currentShop.shopName || '')}
+        >
+          {busy ? <Loader2 className="spin" size={18} /> : <Check size={18} />} {t.common.save}
+        </button>
+      </form>
+
       <h3 className="sheet-title">{t.admin.give}</h3>
       <div className="admin-give">
-        {plans.map((p) => (
-          <button key={p.id} type="button" className="btn ghost" disabled={busy} onClick={() => give(p)}>
-            {t.plans[p.id]} · {money(p.price)}
-          </button>
-        ))}
+        {plans.map((p) => {
+          const isActive = currentShop.plan === p.id && (currentShop.paidUntil || currentShop.plan);
+          return (
+            <button
+              key={p.id}
+              type="button"
+              className={`btn ${isActive ? 'primary' : 'ghost'}`}
+              disabled={busy}
+              onClick={() => give(p)}
+            >
+              {t.plans[p.id]} · {money(p.price)} {isActive ? '✓' : ''}
+            </button>
+          );
+        })}
       </div>
-      {(shop.paidUntil || shop.plan) && (
+      {(currentShop.paidUntil || currentShop.plan) && (
         <button
           type="button"
           className="btn danger-ghost"
@@ -367,7 +413,7 @@ function ShopSheet({ shop, plans, onClose, onChanged }: { shop: AdminShop; plans
         disabled={busy}
         onClick={() =>
           void run(async () => {
-            downloadBlob(await shopBackup(shop.id), `khatay-kalomay-${(shop.shopName || shop.phone).replace(/[\\/:*?"<>|\s]+/g, '-')}-${todayISO()}.json`);
+            downloadBlob(await shopBackup(currentShop.id), `khatay-kalomay-${(currentShop.shopName || currentShop.phone).replace(/[\\/:*?"<>|\s]+/g, '-')}-${todayISO()}.json`);
             toast(t.admin.backupDone);
           })
         }

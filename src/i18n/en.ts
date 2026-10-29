@@ -886,7 +886,7 @@ Thank you, visit again`,
   },
 
   defaults: {
-    shopName: 'My Fruit Shop',
+    shopName: 'My Shop',
     billTitle: 'Bill / Cash Memo',
     billFooter: 'Thank you, visit again',
     templates: {

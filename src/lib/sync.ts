@@ -1,5 +1,7 @@
 import { useSyncExternalStore } from 'react';
+import type { RealtimeChannel } from '@supabase/supabase-js';
 import { liveQuery } from 'dexie';
+import { toast } from '../components/ui';
 import { db, wipeLocalData, type Customer, type FromCloud, type LineItem, type StoredImage, type Txn, type TxnType } from '../db';
 import { applyCloudSettings, getSettings, withoutKeys, type SettingsSync, type SharedSettings } from '../settings';
 import { refreshAccess } from './access';
@@ -450,9 +452,47 @@ export function startSync(shopId: string): () => void {
   const onVisible = () => document.visibilityState === 'visible' && tick();
   window.addEventListener('online', tick);
   document.addEventListener('visibilitychange', onVisible);
-  const every = window.setInterval(tick, 60_000);
+  const every = window.setInterval(tick, 25_000);
   runNow = run;
   tick();
+
+  // Supabase Realtime live channel for instant platform updates
+  let liveChannel: RealtimeChannel | null = null;
+  if (supabase) {
+    try {
+      liveChannel = supabase
+        .channel(`shop-live-${shopId}`)
+        .on('broadcast', { event: 'shop_event' }, async ({ payload }) => {
+          try {
+            await refreshAccess();
+            await run();
+            const action = payload?.action;
+            if (action === 'plan_changed') {
+              const isLifetime = payload.plan === 'lifetime' || payload.until === 'infinity';
+              toast(isLifetime ? 'আপনার প্ল্যান সফলভাবে আপগ্রেড করা হয়েছে (Lifetime)! 🎉' : 'আপনার প্ল্যান সফলভাবে আপডেট হয়েছে! 🎉');
+            } else if (action === 'plan_revoked') {
+              toast('আপনার প্ল্যান রিসেট করা হয়েছে (ফ্রি প্ল্যান)');
+            } else if (action === 'password_changed') {
+              toast('অ্যাডমিন দ্বারা আপনার অ্যাকাউন্টের পাসওয়ার্ড পরিবর্তিত হয়েছে');
+            } else if (action === 'shop_name_changed' && payload.shopName) {
+              toast(`দোকানের নাম পরিবর্তিত হয়েছে: ${payload.shopName}`);
+            }
+          } catch (e) {
+            console.warn('[Realtime event error]:', e);
+          }
+        })
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'shops', filter: `id=eq.${shopId}` }, async () => {
+          await refreshAccess().catch(() => undefined);
+          void run();
+        })
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'shop_settings', filter: `shop_id=eq.${shopId}` }, async () => {
+          void run();
+        })
+        .subscribe();
+    } catch (e) {
+      console.warn('[Realtime channel setup failed]:', e);
+    }
+  }
 
   return () => {
     stopped = true;
@@ -462,6 +502,13 @@ export function startSync(shopId: string): () => void {
     clearInterval(every);
     window.removeEventListener('online', tick);
     document.removeEventListener('visibilitychange', onVisible);
+    if (liveChannel && supabase) {
+      try {
+        supabase.removeChannel(liveChannel);
+      } catch {
+        // ignore
+      }
+    }
   };
 }
 
